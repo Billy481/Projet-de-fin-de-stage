@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Coin Savoureux | Restaurant Gastronomique</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            400: '#f1c40f',
+                            500: '#d4af37',
+                            600: '#aa820a',
+                        },
+                        amber: {
+                            850: '#26180a',
+                            900: '#1c1207'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['Playfair Display', 'Georgia', 'serif'],
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #fceabb 0%, #f8b500 50%, #e6a100 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-glass {
+            background: rgba(28, 25, 23, 0.85);
+            backdrop-filter: blur(12px);
+        }
+        .bg-glass-card {
+            background: rgba(44, 40, 37, 0.6);
+            backdrop-filter: blur(8px);
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #1c1917;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #44403c;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+    </style>
+</head>
+<body class="bg-stone-950 text-stone-200 font-sans antialiased selection:bg-amber-500 selection:text-black min-h-screen flex flex-col">
+
+    <!-- Navigation -->
+    <header class="fixed top-0 left-0 w-full z-50 transition-all duration-300 bg-glass border-b border-stone-800/60" id="main-header">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            
+            <!-- Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-10 h-10 rounded-full border border-amber-500/50 flex items-center justify-center bg-stone-900 group-hover:border-amber-400 transition-colors">
+                    <svg class="w-5 h-5 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21a9 9 0 100-18 9 9 0 000 18z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3" />
+                    </svg>
+                </div>
+                <div>
+                    <span class="font-serif text-xl sm:text-2xl font-bold tracking-wide text-white block leading-none">Le Coin Savoureux</span>
+                    <span class="text-[10px] tracking-[0.25em] text-amber-500 uppercase font-medium">Haute Gastronomie</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#accueil" class="text-stone-300 hover:text-amber-400 transition-colors">Accueil</a>
+                <a href="#specialites" class="text-stone-300 hover:text-amber-400 transition-colors">Spécialités</a>
+                <a href="#menu" class="text-stone-300 hover:text-amber-400 transition-colors">Notre Carte</a>
+                <a href="#histoire" class="text-stone-300 hover:text-amber-400 transition-colors">Notre Histoire</a>
+                <a href="#galerie" class="text-stone-300 hover:text-amber-400 transition-colors">Galerie</a>
+                <a href="#contact" class="text-stone-300 hover:text-amber-400 transition-colors">Contact</a>
+            </nav>
+
+            <!-- CTA Button Desktop -->
+            <div class="hidden md:flex items-center">
+                <a href="#reservation" class="px-5 py-2.5 rounded-full text-sm font-semibold text-stone-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 transition-all transform hover:-translate-y-0.5 shadow-lg shadow-amber-500/20">
+                    Réserver une Table
+                </a>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" type="button" class="md:hidden p-2 text-stone-400 hover:text-white focus:outline-none" aria-label="Menu principal">
+                <svg id="menu-icon-open" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Drawer -->
+        <div id="mobile-menu" class="hidden md:hidden bg-stone-900 border-b border-stone-800 px-4 pt-2 pb-6 space-y-3">
+            <a href="#accueil" class="mobile-link block py-2 text-stone-300 hover:text-amber-400">Accueil</a>
+            <a href="#specialites" class="mobile-link block py-2 text-stone-300 hover:text-amber-400">Spécialités</a>
+            <a href="#menu" class="mobile-link block py-2 text-stone-300 hover:text-amber-400">Notre Carte</a>
+            <a href="#histoire" class="mobile-link block py-2 text-stone-300 hover:text-amber-400">Notre Histoire</a>
+            <a href="#galerie" class="mobile-link block py-2 text-stone-300 hover:text-amber-400">Galerie</a>
+            <a href="#contact" class="mobile-link block py-2 text-stone-300 hover:text-amber-400">Contact</a>
+            <div class="pt-2">
+                <a href="#reservation" class="mobile-link block w-full text-center px-5 py-3 rounded-xl font-semibold text-stone-950 bg-amber-500 hover:bg-amber-400">
+                    Réserver une Table
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="accueil" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Stock Background Image -->
+        <div class="absolute inset-0 z-0">
+            <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1920&q=80" alt="Intérieur du restaurant Le Coin Savoureux" class="w-full h-full object-cover object-center transform scale-105 animate-pulse-slow">
+            <div class="absolute inset-0 bg-gradient-to-t from-stone-950 via-stone-950/80 to-stone-950/40"></div>
+            <div class="absolute inset-0 bg-black/40"></div>
+        </div>
+
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 text-center py-20">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-amber-500/40 bg-stone-900/80 backdrop-blur-md mb-8">
+                <svg class="w-4 h-4 text-amber-400" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                </svg>
+                <span class="text-xs uppercase tracking-widest text-amber-300 font-semibold">Gastronomie Fine & Produits Du Terroir</span>
+            </div>
+
+            <!-- Main Heading -->
+            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-bold text-white tracking-tight leading-tight mb-6">
+                Une Symphonie de <br class="hidden sm:inline" /><span class="gold-gradient-text">Saveurs Inoubliables</span>
+            </h1>
+
+            <p class="max-w-2xl mx-auto text-lg sm:text-xl text-stone-300 font-light leading-relaxed mb-10">
+                Redécouvrez l'art culinaire français sublimé par des ingrédients frais et de saison, dans une atmosphère chaleureuse et élégante.
+            </p>
+
+            <!-- CTA Group -->
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#reservation" class="w-full sm:w-auto px-8 py-4 rounded-full font-semibold text-stone-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/20 transition-all transform hover:scale-105">
+                    Réserver une Table
+                </a>
+                <a href="#menu" class="w-full sm:w-auto px-8 py-4 rounded-full font-semibold text-stone-200 border border-stone-700 bg-stone-900/60 hover:bg-stone-800 hover:border-amber-500/50 transition-all backdrop-blur-md">
+                    Découvrir La Carte
+                </a>
+            </div>
+
+            <!-- Key Highlights Bar -->
+            <div class="mt-20 grid grid-cols-2 md:grid-cols-4 gap-6 pt-12 border-t border-stone-800/80 max-w-4xl mx-auto">
+                <div class="text-center">
+                    <span class="block font-serif text-3xl font-bold text-amber-400">100%</span>
+                    <span class="text-xs text-stone-400 uppercase tracking-wider">Frais & Local</span>
+                </div>
+                <div class="text-center">
+                    <span class="block font-serif text-3xl font-bold text-amber-400">15+</span>
+                    <span class="text-xs text-stone-400 uppercase tracking-wider">Années de Passion</span>
+                </div>
+                <div class="text-center">
+                    <span class="block font-serif text-3xl font-bold text-amber-400">4.9/5</span>
+                    <span class="text-xs text-stone-400 uppercase tracking-wider">Satisfaction Client</span>
+                </div>
+                <div class="text-center">
+                    <span class="block font-serif text-3xl font-bold text-amber-400">120+</span>
+                    <span class="text-xs text-stone-400 uppercase tracking-wider">Grands Vins</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Chef Specialties Section -->
+    <section id="specialites" class="py-24 bg-stone-900 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-semibold tracking-widest text-amber-500 uppercase">Créations Signature</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-2 mb-4">Les Incontournables du Chef</h2>
+                <div class="w-20 h-1 bg-gradient-to-r from-amber-500 to-transparent mx-auto"></div>
+                <p class="mt-4 text-stone-400 text-base sm:text-lg">
+                    Une sélection minutieuse de nos créations les plus appréciées, alliant technique traditionnelle et créativité moderne.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Specialty 1 -->
+                <div class="bg-stone-950 border border-stone-800 rounded-2xl overflow-hidden group hover:border-amber-500/50 transition-all duration-300 flex flex-col">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1558030006-450675393462?auto=format&fit=crop&w=800&q=80" alt="Filet de Bœuf Wagyu" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-amber-500 text-stone-950 font-bold text-sm px-3 py-1 rounded-full shadow-md">
+                            48 €
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs text-amber-400 font-medium uppercase tracking-wider">Viande d'Exception</span>
+                            <h3 class="font-serif text-2xl font-bold text-white mt-1 mb-2">Filet de Bœuf Rossini</h3>
+                            <p class="text-stone-400 text-sm leading-relaxed mb-4">
+                                Bœuf Wagyu rôti au thym frais, escalope de foie gras poêlée, jus corsé à la truffe noire du Périgord et mousseline de pommes de terre de Noirmoutier.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-stone-800/80 flex items-center justify-between text-xs text-stone-400">
+                            <span class="flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Ingrédients Locaux
+                            </span>
+                            <span class="text-amber-400/80 font-medium">Recommandation du Chef</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specialty 2 -->
+                <div class="bg-stone-950 border border-stone-800 rounded-2xl overflow-hidden group hover:border-amber-500/50 transition-all duration-300 flex flex-col">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1519708227418-c8fd9a32b7a2?auto=format&fit=crop&w=800&q=80" alt="Pavé de Saumon Sauvage" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-amber-500 text-stone-950 font-bold text-sm px-3 py-1 rounded-full shadow-md">
+                            36 €
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs text-amber-400 font-medium uppercase tracking-wider">Pêche Réflechie</span>
+                            <h3 class="font-serif text-2xl font-bold text-white mt-1 mb-2">Pavé de Saumon Rôti sur Peau</h3>
+                            <p class="text-stone-400 text-sm leading-relaxed mb-4">
+                                Saumon sauvage mariné aux agrumes, émulsion de verveine sauvage, déclinaisons de carottes fane glacées au miel de lavande.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-stone-800/80 flex items-center justify-between text-xs text-stone-400">
+                            <span class="flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Sans Gluten
+                            </span>
+                            <span class="text-amber-400/80 font-medium">Léger & Savoureux</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Specialty 3 -->
+                <div class="bg-stone-950 border border-stone-800 rounded-2xl overflow-hidden group hover:border-amber-500/50 transition-all duration-300 flex flex-col">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=800&q=80" alt="Soufflé au Chocolat Noir" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute top-4 right-4 bg-amber-500 text-stone-950 font-bold text-sm px-3 py-1 rounded-full shadow-md">
+                            18 €
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <span class="text-xs text-amber-400 font-medium uppercase tracking-wider">Douceur Finale</span>
+                            <h3 class="font-serif text-2xl font-bold text-white mt-1 mb-2">Soufflé Chaud Chocolat & Noisette</h3>
+                            <p class="text-stone-400 text-sm leading-relaxed mb-4">
+                                Chocolat Valrhona 70%, cœur fondant à la praliné noisette fait maison, accompagné de sa glace à la vanille de Madagascar.
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-stone-800/80 flex items-center justify-between text-xs text-stone-400">
+                            <span class="flex items-center gap-1.5">
+                                <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                                Fait Maison
+                            </span>
+                            <span class="text-amber-400/80 font-medium">Incomparable</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Menu Section -->
+    <section id="menu" class="py-24 bg-stone-950 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-12">
+                <span class="text-xs font-semibold tracking-widest text-amber-500 uppercase">Plaisirs Culinaire</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-2 mb-4">Notre Carte Détaillée</h2>
+                <p class="text-stone-400 text-base sm:text-lg">
+                    Chaque plat est une invitation au voyage gustatif. Choisissez parmi nos suggestions du moment.
+                </p>
+            </div>
+
+            <!-- Category Filter Buttons -->
+            <div class="flex flex-wrap justify-center gap-2 sm:gap-4 mb-12">
+                <button onclick="filterMenu('all')" class="menu-tab-btn active px-5 py-2.5 rounded-full text-sm font-medium border border-amber-500 bg-amber-500 text-stone-950 transition-all shadow-md shadow-amber-500/10">
+                    Tous les Plats
+                </button>
+                <button onclick="filterMenu('entrees')" class="menu-tab-btn px-5 py-2.5 rounded-full text-sm font-medium border border-stone-800 bg-stone-900 text-stone-300 hover:border-amber-500/50 hover:text-white transition-all">
+                    Entrées
+                </button>
+                <button onclick="filterMenu('plats')" class="menu-tab-btn px-5 py-2.5 rounded-full text-sm font-medium border border-stone-800 bg-stone-900 text-stone-300 hover:border-amber-500/50 hover:text-white transition-all">
+                    Plats Principaux
+                </button>
+                <button onclick="filterMenu('desserts')" class="menu-tab-btn px-5 py-2.5 rounded-full text-sm font-medium border border-stone-800 bg-stone-900 text-stone-300 hover:border-amber-500/50 hover:text-white transition-all">
+                    Desserts
+                </button>
+                <button onclick="filterMenu('boissons')" class="menu-tab-btn px-5 py-2.5 rounded-full text-sm font-medium border border-stone-800 bg-stone-900 text-stone-300 hover:border-amber-500/50 hover:text-white transition-all">
+                    Vins & Boissons
+                </button>
+            </div>
+
+            <!-- Menu Grid -->
+            <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+                <!-- Item 1: Entree -->
+                <div class="menu-item entrees flex items-center gap-4 bg-stone-900/60 p-4 rounded-2xl border border-stone-800/80 hover:border-amber-500/30 transition-all">
+                    <img src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=300&q=80" alt="Velouté de Potimarron" class="w-24 h-24 rounded-xl object-cover shrink-0">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-serif text-lg font-bold text-white">Velouté de Potimarron & Châtaignes</h3>
+                            <span class="font-serif font-bold text-amber-400">19 €</span>
+                        </div>
+                        <p class="text-stone-400 text-xs leading-relaxed mb-2">Émulsion de noisettes torréfiées, éclats de châtaignes et huile d'olive pimentée.</p>
+                        <span class="inline-block text-[10px] font-semibold tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2 py-0.5 rounded">Végétarien</span>
+                    </div>
+                </div>
+
+                <!-- Item 2: Entree -->
+                <div class="menu-item entrees flex items-center gap-4 bg-stone-900/60 p-4 rounded-2xl border border-stone-800/80 hover:border-amber-500/30 transition-all">
+                    <img src="https://images.unsplash.com/photo-1547592166-23ac45744acd?auto=format&fit=crop&w=300&q=80" alt="Tartare de Saint-Jacques" class="w-24 h-24 rounded-xl object-cover shrink-0">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-serif text-lg font-bold text-white">Tartare de Saint-Jacques aux Agrumes</h3>
+                            <span class="font-serif font-bold text-amber-400">24 €</span>
+                        </div>
+                        <p class="text-stone-400 text-xs leading-relaxed mb-2">Noix de Saint-Jacques fraîches, pamplemousse rose, mangue et perles de yuzu.</p>
+                        <span class="inline-block text-[10px] font-semibold tracking-wider text-amber-400 bg-amber-950/60 border border-amber-800/50 px-2 py-0.5 rounded">Fait Maison</span>
+                    </div>
+                </div>
+
+                <!-- Item 3: Plat -->
+                <div class="menu-item plats flex items-center gap-4 bg-stone-900/60 p-4 rounded-2xl border border-stone-800/80 hover:border-amber-500/30 transition-all">
+                    <img src="https://images.unsplash.com/photo-1551183053-bf91a1d81141?auto=format&fit=crop&w=300&q=80" alt="Risotto aux Morilles" class="w-24 h-24 rounded-xl object-cover shrink-0">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-serif text-lg font-bold text-white">Risotto Carnaroli aux Morilles & Parmigiano</h3>
+                            <span class="font-serif font-bold text-amber-400">32 €</span>
+                        </div>
+                        <p class="text-stone-400 text-xs leading-relaxed mb-2">Riz arborio crémeux, morilles fraîches poêlées, tuile de parmesan 24 mois.</p>
+                        <span class="inline-block text-[10px] font-semibold tracking-wider text-emerald-400 bg-emerald-950/60 border border-emerald-800/50 px-2 py-0.5 rounded">Végétarien</span>
+                    </div>
+                </div>
+
+                <!-- Item 4: Plat -->
+                <div class="menu-item plats flex items-center gap-4 bg-stone-900/60 p-4 rounded-2xl border border-stone-800/80 hover:border-amber-500/30 transition-all">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=300&q=80" alt="Magret de Canard Rôti" class="w-24 h-24 rounded-xl object-cover shrink-0">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-serif text-lg font-bold text-white">Magret de Canard du Sud-Ouest</h3>
+                            <span class="font-serif font-bold text-amber-400">34 €</span>
+                        </div>
+                        <p class="text-stone-400 text-xs leading-relaxed mb-2">Sauce réduction aux figues et poivre de Sichuan, purée de mousseline de céleri.</p>
+                        <span class="inline-block text-[10px] font-semibold tracking-wider text-sky-400 bg-sky-950/60 border border-sky-800/50 px-2 py-0.5 rounded">Produit Régional</span>
+                    </div>
+                </div>
+
+                <!-- Item 5: Dessert -->
+                <div class="menu-item desserts flex items-center gap-4 bg-stone-900/60 p-4 rounded-2xl border border-stone-800/80 hover:border-amber-500/30 transition-all">
+                    <img src="https://images.unsplash.com/photo-1587314168485-3236d6710814?auto=format&fit=crop&w=300&q=80" alt="Mille-Feuille Vanille" class="w-24 h-24 rounded-xl object-cover shrink-0">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-serif text-lg font-bold text-white">Mille-Feuille Croustillant Vanille</h3>
+                            <span class="font-serif font-bold text-amber-400">16 €</span>
+                        </div>
+                        <p class="text-stone-400 text-xs leading-relaxed mb-2">Pâte feuilletée caramélisée, crème diplomate vanille Bourbon et caramel au beurre salé.</p>
+                        <span class="inline-block text-[10px] font-semibold tracking-wider text-amber-400 bg-amber-950/60 border border-amber-800/50 px-2 py-0.5 rounded">Signature</span>
+                    </div>
+                </div>
+
+                <!-- Item 6: Boisson -->
+                <div class="menu-item boissons flex items-center gap-4 bg-stone-900/60 p-4 rounded-2xl border border-stone-800/80 hover:border-amber-500/30 transition-all">
+                    <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=300&q=80" alt="Château Margaux" class="w-24 h-24 rounded-xl object-cover shrink-0">
+                    <div class="flex-1">
+                        <div class="flex justify-between items-start mb-1">
+                            <h3 class="font-serif text-lg font-bold text-white">Bordeaux Grand Cru Sélection</h3>
+                            <span class="font-serif font-bold text-amber-400">75 € / Bouteille</span>
+                        </div>
+                        <p class="text-stone-400 text-xs leading-relaxed mb-2">Rouge intense, notes de fruits noirs et d'épices douces. Parfait pour accompagner vos viandes.</p>
+                        <span class="inline-block text-[10px] font-semibold tracking-wider text-purple-400 bg-purple-950/60 border border-purple-800/50 px-2 py-0.5 rounded">Cave Privée</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- History & Chef Section -->
+    <section id="histoire" class="py-24 bg-stone-900 border-t border-b border-stone-800/60 relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+                
+                <!-- Chef Image & Collage -->
+                <div class="relative">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-stone-800">
+                        <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&w=800&q=80" alt="Chef de cuisine au travail" class="w-full h-[480px] object-cover">
+                    </div>
+                    
+                    <!-- Decorative Badge Overlay -->
+                    <div class="absolute -bottom-6 -right-6 bg-stone-950 p-6 rounded-2xl border border-amber-500/40 shadow-xl hidden sm:block max-w-xs">
+                        <p class="font-serif text-base italic text-amber-300 mb-2">« La cuisine, c’est quand les choses ont le goût de ce qu’elles sont. »</p>
+                        <span class="text-xs text-stone-400 uppercase tracking-widest block text-right">— Chef Jean-René Moreau</span>
+                    </div>
+                </div>
+
+                <!-- Text Content -->
+                <div>
+                    <span class="text-xs font-semibold tracking-widest text-amber-500 uppercase">Tradition & Passion</span>
+                    <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-2 mb-6">L'Histoire du Coin Savoureux</h2>
+                    
+                    <p class="text-stone-300 leading-relaxed mb-6">
+                        Fondé en 2011 au cœur du quartier historique, <strong class="text-white">Le Coin Savoureux</strong> est né de la passion transmise depuis trois générations. Notre philosophie est fondée sur la rigueur, le respect absolu du produit et la créativité.
+                    </p>
+                    <p class="text-stone-400 leading-relaxed mb-8">
+                        Chaque matin, nos équipes parcourent les marchés locaux pour sélectionner poissons de petite pêche, légumes biologiques maraîchers et viandes d'exception issues d'élevages éco-responsables.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-6 pt-4 border-t border-stone-800">
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 rounded-lg bg-amber-500/10 text-amber-400 shrink-0">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Produits 100% Frais</h4>
+                                <p class="text-xs text-stone-400">Arrivage quotidien d'ingrédients de saison.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="p-2 rounded-lg bg-amber-500/10 text-amber-400 shrink-0">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-white text-sm">Service d'Exception</h4>
+                                <p class="text-xs text-stone-400">Un accueil chaleureux et attentionné.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="galerie" class="py-24 bg-stone-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-semibold tracking-widest text-amber-500 uppercase">Atmosphère & Moments</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-2 mb-4">Galerie Photos</h2>
+                <p class="text-stone-400 text-base">Plongez dans l'ambiance feutrée de notre établissement.</p>
+            </div>
+
+            <!-- Gallery Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                <div class="relative group rounded-2xl overflow-hidden h-72 border border-stone-800">
+                    <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=800&q=80" alt="Salle de restaurant" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-serif text-lg font-bold">Salle Principale</span>
+                    </div>
+                </div>
+
+                <div class="relative group rounded-2xl overflow-hidden h-72 border border-stone-800">
+                    <img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?auto=format&fit=crop&w=800&q=80" alt="Verre de vin" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-serif text-lg font-bold">Sélection Sommelier</span>
+                    </div>
+                </div>
+
+                <div class="relative group rounded-2xl overflow-hidden h-72 border border-stone-800">
+                    <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=800&q=80" alt="Détail assiette" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-stone-950/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                        <span class="text-white font-serif text-lg font-bold">Dressage Soigné</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation Section -->
+    <section id="reservation" class="py-24 bg-stone-900 border-t border-stone-800/80 relative">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-stone-950 rounded-3xl p-8 sm:p-12 border border-amber-500/30 shadow-2xl relative overflow-hidden">
+                
+                <div class="text-center max-w-2xl mx-auto mb-10">
+                    <span class="text-xs font-semibold tracking-widest text-amber-500 uppercase">Réservez en Ligne</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white mt-2 mb-3">Réserver votre Table</h2>
+                    <p class="text-stone-400 text-sm">
+                        Sélectionnez la date, l'heure et le nombre de convives. Nous vous confirmerons immédiatement votre réservation.
+                    </p>
+                </div>
+
+                <form id="reservation-form" onsubmit="handleReservation(event)" class="space-y-6">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        
+                        <!-- Date -->
+                        <div>
+                            <label class="block text-xs font-medium uppercase text-stone-300 mb-2">Date</label>
+                            <input type="date" required id="res-date" class="w-full bg-stone-900 border border-stone-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors">
+                        </div>
+
+                        <!-- Heure -->
+                        <div>
+                            <label class="block text-xs font-medium uppercase text-stone-300 mb-2">Heure</label>
+                            <select required id="res-time" class="w-full bg-stone-900 border border-stone-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors">
+                                <option value="">Choisir un créneau</option>
+                                <option value="12:00">12:00 - Déjeuner</option>
+                                <option value="12:30">12:30 - Déjeuner</option>
+                                <option value="13:00">13:00 - Déjeuner</option>
+                                <option value="19:30">19:30 - Dîner</option>
+                                <option value="20:00">20:00 - Dîner</option>
+                                <option value="20:30">20:30 - Dîner</option>
+                                <option value="21:00">21:00 - Dîner</option>
+                            </select>
+                        </div>
+
+                        <!-- Nombre de Personnes -->
+                        <div>
+                            <label class="block text-xs font-medium uppercase text-stone-300 mb-2">Convives</label>
+                            <select required id="res-guests" class="w-full bg-stone-900 border border-stone-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors">
+                                <option value="1">1 Personne</option>
+                                <option value="2" selected>2 Personnes</option>
+                                <option value="3">3 Personnes</option>
+                                <option value="4">4 Personnes</option>
+                                <option value="5">5 Personnes</option>
+                                <option value="6+">6 Personnes et plus</option>
+                            </select>
+                        </div>
+
+                        <!-- Nom -->
+                        <div>
+                            <label class="block text-xs font-medium uppercase text-stone-300 mb-2">Nom Complet</label>
+                            <input type="text" required placeholder="Ex: Jean Dupont" id="res-name" class="w-full bg-stone-900 border border-stone-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors">
+                        </div>
+
+                        <!-- Email -->
+                        <div>
+                            <label class="block text-xs font-medium uppercase text-stone-300 mb-2">Adresse Email</label>
+                            <input type="email" required placeholder="jean@example.com" id="res-email" class="w-full bg-stone-900 border border-stone-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors">
+                        </div>
+
+                        <!-- Téléphone -->
+                        <div>
+                            <label class="block text-xs font-medium uppercase text-stone-300 mb-2">Téléphone</label>
+                            <input type="tel" required placeholder="06 12 34 56 78" id="res-phone" class="w-full bg-stone-900 border border-stone-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors">
+                        </div>
+
+                    </div>
+
+                    <!-- Remarques -->
+                    <div>
+                        <label class="block text-xs font-medium uppercase text-stone-300 mb-2">Demandes Particulières (Optionnel)</label>
+                        <textarea id="res-notes" rows="3" placeholder="Allergies, terrasse, événement spécial..." class="w-full bg-stone-900 border border-stone-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-amber-500 transition-colors resize-none"></textarea>
+                    </div>
+
+                    <div class="text-center pt-4">
+                        <button type="submit" class="w-full sm:w-auto px-10 py-4 rounded-full font-semibold text-stone-950 bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-300 hover:to-amber-400 shadow-xl shadow-amber-500/20 transition-all transform hover:scale-105">
+                            Confirmer Ma Réservation
+                        </button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="py-24 bg-stone-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-xs font-semibold tracking-widest text-amber-500 uppercase">Témoignages</span>
+                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white mt-2 mb-4">Ce Que Disent Nos Clients</h2>
+                <p class="text-stone-400 text-base">Découvrez les retours de nos épicuriens.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Review 1 -->
+                <div class="bg-stone-900/60 p-6 rounded-2xl border border-stone-800 flex flex-col justify-between">
+                    <div>
+                        <!-- Stars -->
+                        <div class="flex text-amber-400 mb-4">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                        </div>
+                        <p class="text-stone-300 text-sm leading-relaxed italic mb-6">
+                            « Une expérience mémorable ! Le filet de bœuf Rossini était d'une tendreté absolue. Le cadre est intimiste et le personnel d'une rare amabilité. »
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-stone-800">
+                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=80" alt="Sophie Laurent" class="w-10 h-10 rounded-full object-cover">
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Sophie Laurent</h4>
+                            <span class="text-xs text-stone-500">Avis certifié</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-stone-900/60 p-6 rounded-2xl border border-stone-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 mb-4">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                        </div>
+                        <p class="text-stone-300 text-sm leading-relaxed italic mb-6">
+                            « Tout était parfait du début à la fin. Les accords mets et vins suggérés par le sommelier ont sublimé chaque plat. Nous reviendrons sans hésiter. »
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-stone-800">
+                        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=150&q=80" alt="Marc Antoine" class="w-10 h-10 rounded-full object-cover">
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Marc Antoine</h4>
+                            <span class="text-xs text-stone-500">Avis certifié</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-stone-900/60 p-6 rounded-2xl border border-stone-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex text-amber-400 mb-4">
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                            <svg class="w-5 h-5 fill-current" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+                        </div>
+                        <p class="text-stone-300 text-sm leading-relaxed italic mb-6">
+                            « Le soufflé chaud au chocolat est tout simplement divin. Une adresse incontournable pour les amateurs de bonne gastronomie. »
+                        </p>
+                    </div>
+                    <div class="flex items-center gap-3 pt-4 border-t border-stone-800">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=80" alt="Élodie Petit" class="w-10 h-10 rounded-full object-cover">
+                        <div>
+                            <h4 class="text-white font-bold text-sm">Élodie Petit</h4>
+                            <span class="text-xs text-stone-500">Avis certifié</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Opening Hours Section -->
+    <section id="contact" class="py-24 bg-stone-900 border-t border-stone-800 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                
+                <!-- Info & Hours -->
+                <div>
+                    <span class="text-xs font-semibold tracking-widest text-amber-500 uppercase">Infos Pratiques</span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white mt-2 mb-6">Nous Trouver & Horaires</h2>
+                    
+                    <div class="space-y-6 mb-8">
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-stone-950 rounded-xl border border-stone-800 text-amber-500">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-base">Adresse</h4>
+                                <p class="text-stone-400 text-sm">18 Rue des Gourmets, 75001 Paris, France</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-4">
+                            <div class="p-3 bg-stone-950 rounded-xl border border-stone-800 text-amber-500">
+                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h32a2 2 0 012 2v2a2 2 0 01-2 2H5a2 2 0 01-2-2V5z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M3 14h18M3 18h18"/></svg>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-base">Contact & Réservation</h4>
+                                <p class="text-stone-400 text-sm">Téléphone : +33 1 42 68 90 00</p>
+                                <p class="text-stone-400 text-sm">Email : contact@lecoinsavoureux.fr</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hours Table -->
+                    <div class="bg-stone-950 p-6 rounded-2xl border border-stone-800">
+                        <h4 class="font-serif text-lg font-bold text-white mb-4 border-b border-stone-800 pb-2">Horaires d'Ouverture</h4>
+                        <div class="space-y-2 text-sm">
+                            <div class="flex justify-between text-stone-300">
+                                <span>Mardi - Vendredi</span>
+                                <span class="text-amber-400 font-medium">12:00–14:30 | 19:30–22:30</span>
+                            </div>
+                            <div class="flex justify-between text-stone-300">
+                                <span>Samedi</span>
+                                <span class="text-amber-400 font-medium">19:00–23:00</span>
+                            </div>
+                            <div class="flex justify-between text-stone-300">
+                                <span>Dimanche</span>
+                                <span class="text-amber-400 font-medium">12:00–15:00 (Brunch & Déjeuner)</span>
+                            </div>
+                            <div class="flex justify-between text-stone-500 pt-2 border-t border-stone-800/60">
+                                <span>Lundi</span>
+                                <span class="italic">Fermé</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Mockup / Location Visual -->
+                <div class="bg-stone-950 rounded-2xl border border-stone-800 overflow-hidden relative min-h-[350px] flex items-center justify-center p-6 text-center">
+                    <img src="https://images.unsplash.com/photo-1526778548025-fa2f459cd5c1?auto=format&fit=crop&w=800&q=80" alt="Carte de localisation" class="absolute inset-0 w-full h-full object-cover opacity-30">
+                    <div class="relative z-10 bg-stone-900/90 backdrop-blur-md p-8 rounded-2xl border border-stone-700 max-w-sm">
+                        <div class="w-12 h-12 rounded-full bg-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-4 border border-amber-500/40">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg>
+                        </div>
+                        <h3 class="font-serif text-xl font-bold text-white mb-2">Au Cœur de Paris</h3>
+                        <p class="text-stone-400 text-xs mb-4">À 2 minutes à pied de la station Châtelet - Les Halles.</p>
+                        <a href="https://maps.google.com" target="_blank" class="inline-block px-5 py-2.5 rounded-full text-xs font-semibold bg-amber-500 text-stone-950 hover:bg-amber-400 transition-colors">
+                            Obtenir l'Itinéraire
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-stone-950 border-t border-stone-800 py-12 text-stone-400 text-xs">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full border border-amber-500/50 flex items-center justify-center bg-stone-900">
+                    <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 21a9 9 0 100-18 9 9 0 000 18z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8v4l3 3"/></svg>
+                </div>
+                <span class="font-serif text-lg font-bold text-white">Le Coin Savoureux</span>
+            </div>
+            
+            <p>&copy; 2026 Le Coin Savoureux. Tous droits réservés.</p>
+
+            <div class="flex space-x-6 text-stone-400">
+                <a href="#" class="hover:text-amber-400 transition-colors">Mentions Légales</a>
+                <a href="#" class="hover:text-amber-400 transition-colors">Politique de Confidentialité</a>
+                <a href="#" class="hover:text-amber-400 transition-colors">Cookies</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Reservation Modal Confirmation -->
+    <div id="confirmation-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-stone-900 border border-amber-500/40 rounded-3xl p-8 max-w-md w-full text-center relative shadow-2xl">
+            <div class="w-16 h-16 bg-amber-500/20 border border-amber-500/50 rounded-full flex items-center justify-center mx-auto mb-4 text-amber-400">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            </div>
+            
+            <h3 class="font-serif text-2xl font-bold text-white mb-2">Réservation Confirmée !</h3>
+            <p class="text-stone-300 text-sm mb-6">
+                Merci <span id="modal-client-name" class="font-bold text-amber-400"></span>. Un e-mail de confirmation vous a été envoyé.
+            </p>
+
+            <div class="bg-stone-950 p-4 rounded-xl border border-stone-800 text-left text-xs space-y-2 mb-6">
+                <div class="flex justify-between"><span class="text-stone-400">Date :</span><span id="modal-res-date" class="text-white font-medium"></span></div>
+                <div class="flex justify-between"><span class="text-stone-400">Heure :</span><span id="modal-res-time" class="text-white font-medium"></span></div>
+                <div class="flex justify-between"><span class="text-stone-400">Convives :</span><span id="modal-res-guests" class="text-white font-medium"></span></div>
+                <div class="flex justify-between"><span class="text-stone-400">Numéro de référence :</span><span id="modal-res-code" class="text-amber-400 font-mono"></span></div>
+            </div>
+
+            <button onclick="closeModal()" class="w-full py-3 rounded-full font-semibold text-stone-950 bg-amber-500 hover:bg-amber-400 transition-colors">
+                Fermer
+            </button>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIconOpen = document.getElementById('menu-icon-open');
+        const menuIconClose = document.getElementById('menu-icon-close');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            menuIconOpen.classList.toggle('hidden');
+            menuIconClose.classList.toggle('hidden');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                menuIconOpen.classList.remove('hidden');
+                menuIconClose.classList.add('hidden');
+            });
+        });
+
+        // Set minimum date to today for reservation
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('res-date').setAttribute('min', today);
+        document.getElementById('res-date').value = today;
+
+        // Menu Tab Filtering
+        function filterMenu(category) {
+            const tabs = document.querySelectorAll('.menu-tab-btn');
+            tabs.forEach(tab => {
+                tab.classList.remove('bg-amber-500', 'text-stone-950', 'border-amber-500');
+                tab.classList.add('bg-stone-900', 'text-stone-300', 'border-stone-800');
+            });
+
+            // Active tab styling
+            event.currentTarget.classList.remove('bg-stone-900', 'text-stone-300', 'border-stone-800');
+            event.currentTarget.classList.add('bg-amber-500', 'text-stone-950', 'border-amber-500');
+
+            const items = document.querySelectorAll('.menu-item');
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        }
+
+        // Handle Reservation Form Submission
+        function handleReservation(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('res-name').value;
+            const date = document.getElementById('res-date').value;
+            const time = document.getElementById('res-time').value;
+            const guests = document.getElementById('res-guests').value;
+
+            // Generate random reference code
+            const randomCode = 'LCS-' + Math.floor(100000 + Math.random() * 900000);
+
+            // Populate Modal
+            document.getElementById('modal-client-name').innerText = name;
+            document.getElementById('modal-res-date').innerText = date;
+            document.getElementById('modal-res-time').innerText = time;
+            document.getElementById('modal-res-guests').innerText = guests + (guests === '1' ? ' Personne' : ' Personnes');
+            document.getElementById('modal-res-code').innerText = randomCode;
+
+            // Show Modal
+            document.getElementById('confirmation-modal').classList.remove('hidden');
+        }
+
+        function closeModal() {
+            document.getElementById('confirmation-modal').classList.add('hidden');
+            document.getElementById('reservation-form').reset();
+            document.getElementById('res-date').value = today;
+        }
+    </script>
+</body>

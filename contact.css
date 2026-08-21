@@ -1,0 +1,72 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+
+body{
+    background-image: url(03032026_RH_Montreal_Hero.png);
+    background-size: 1600px;
+    font-family: Ubuntu;
+}
+div{
+    max-width: 300vh;
+    margin: auto;
+    background-color: rgba(9, 8, 8, 0.1);
+    backdrop-filter: blur(10px);
+    width: 400px;
+    text-align: center;
+    color: aliceblue;
+    border-radius: 30px;
+    position: relative;
+    bottom: -60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+textarea {
+    background-color: #f1f1cf;
+    height: 80px;
+    width: 220px;
+    margin: 20px;
+    border: none;
+    border-radius: 8px;
+    font-family: Ubuntu;
+}
+
+.bouton:hover {
+    transform: scale(1.05);
+    transition-duration: 0.9s;
+}
+
+.bouton{
+    color: white;
+     background-color: #9f5501;
+    border-radius: 6px;
+    margin-top: 20px;
+    height: 25px;
+    width: 125px;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bouton img {
+    height: 18px;
+    margin-right: 10px;
+}
+.oip{
+       background: beige;
+    color: aliceblue;
+    border-radius: 8px;
+    height: 20px;
+    border: none;
+    margin-bottom: 20px;
+}
+
+.voip{
+    background: beige;
+    color:aliceblue ;
+    height: 20px;
+    border-radius: 8px;
+    border: none;
+}
