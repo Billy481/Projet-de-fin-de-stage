@@ -3,31 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
-     <link rel="stylesheet" href="contact.css">
-     <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Contactez Le Coin Savoureux - Restaurant gastronomique">
+    <title>Contact - Le Coin Savoureux</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contact.css">
 </head>
 <body>
-    <nav>
-        <div class="logo">
-        <img src="log.png" alt="Logo">
-        <p>Le coin savoureux</p>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="logo">
+                <img src="log.png" alt="Logo Le Coin Savoureux">
+                <p>Le Coin Savoureux</p>
+            </div>
+            <button class="menu-toggle" id="menuToggle" aria-label="Toggle menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="nav-link">Accueil</a></li>
+                <li><a href="index.html#order" class="nav-link">Réservation</a></li>
+                <li><a href="menu.html" class="nav-link">Menu</a></li>
+            </ul>
         </div>
-        <ul>
-            <a href="#order"><li>Réservation</li></a> 
-            <a href="menu.html"><li>Menu</li></a>
-            <a href="contact.html">Contact</a>
-        </ul>
     </nav>
-     <div class="input box">
-  <h1>Contactez-nous</h1>
-  <p>Des questions ou des remarques? <br>Ecrivez-nous simplement un message</p>
-  <input type="texte" placeholder="Adresse" class="oip">
-  <input type="text" placeholder="Nom" class="voip">
-  <textarea name="" id="" placeholder="Entrez votre message"></textarea>
-  <button class="bouton"> <img src="send.svg" alt="">Envoyer</button>  
-    <p>Telephone(fixe) <br>+33 01 96 73 85 01 <br>+33 01 95 29 00 57</p>
-    <p>Emplacement de notre restaurant <br>le coin savoureux.com Marseille</p>
-</div>
+
+    <section class="contact-section">
+        <div class="contact-container">
+            <h1>Contactez-nous</h1>
+            <p class="contact-intro">Des questions ou des remarques? Écrivez-nous simplement un message.</p>
+
+            <form class="contact-form" id="contactForm">
+                <div class="form-group">
+                    <input type="text" placeholder="Adresse" required aria-label="Votre adresse email">
+                </div>
+                <div class="form-group">
+                    <input type="text" placeholder="Nom" required aria-label="Votre nom">
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Entrez votre message" rows="5" required aria-label="Votre message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Envoyer</button>
+            </form>
+
+            <div class="contact-info">
+                <div class="info-block">
+                    <h3>Téléphone</h3>
+                    <p><a href="tel:+33142689000">+33 1 42 68 90 00</a></p>
+                </div>
+                <div class="info-block">
+                    <h3>Localisation</h3>
+                    <p>18 Rue des Gourmets<br>75001 Paris, France</p>
+                </div>
+                <div class="info-block">
+                    <h3>Horaires</h3>
+                    <p>Mardi - Vendredi: 12h-14h30, 19h30-22h30<br>Samedi: 19h-23h<br>Dimanche: 12h-15h<br>Lundi: Fermé</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Le Coin Savoureux. Tous droits réservés.</p>
+        <p>Téléphone : +33 1 42 68 90 00 | Email : contact@lecoinsavoureux.fr</p>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu when clicking on links
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('active');
+            });
+        });
+
+        // Form submission
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Merci pour votre message! Nous vous recontacterons bientôt.');
+            this.reset();
+        });
+    </script>
 </body>
 </html>
